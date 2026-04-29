@@ -17,10 +17,10 @@
 
 | Service | URL |
 |---|---|
-| Recruiter Dashboard | https://zenhire.app |
+| Recruiter Dashboard | https://frontend-tau-three-77.vercel.app |
 | API | https://zenhire-api.onrender.com |
-| API Docs (Swagger) | https://zenhire-api.onrender.com/docs |
-| Candidate Interview | https://zenhire.app/interview/{session_id} |
+| API Docs | https://zenhire-api.onrender.com/docs |
+| Candidate Interview | https://frontend-tau-three-77.vercel.app/interview/{session_id} |
 
 ---
 
