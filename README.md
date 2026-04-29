@@ -13,6 +13,17 @@
 
 ---
 
+## 🚀 Live Demo
+
+| Service | URL |
+|---|---|
+| Recruiter Dashboard | https://zenhire.app |
+| API | https://zenhire-api.onrender.com |
+| API Docs (Swagger) | https://zenhire-api.onrender.com/docs |
+| Candidate Interview | https://zenhire.app/interview/{session_id} |
+
+---
+
 ## What This Is
 
 Zenhire is a portfolio-grade AI candidate evaluation system that automates the technical interview process from resume upload through to a hiring decision. A recruiter creates a job with a custom evaluation rubric, invites a candidate via a unique link, and receives a fully explainable hiring report — without the candidate needing to create an account.
