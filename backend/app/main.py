@@ -46,7 +46,7 @@ async def health_providers() -> dict[str, object]:
         "anthropic": bool(settings.ANTHROPIC_API_KEY),
         "groq": bool(settings.GROQ_API_KEY),
         "openrouter": bool(settings.OPENROUTER_API_KEY),
-        "embeddings_available": bool(settings.OPENAI_API_KEY),
+        "embeddings_available": True,  # sentence-transformers, always local
         "active_providers": settings.active_providers,
         "active_count": len(settings.active_providers),
     }

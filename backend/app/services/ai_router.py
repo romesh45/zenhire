@@ -9,8 +9,7 @@ logical model groups:
 The router tries all configured providers in order and falls back
 automatically on failure (rate limit, outage, etc.).
 
-Embeddings always use OpenAI text-embedding-3-small; Groq and OpenRouter
-do not offer embedding APIs.
+Embeddings use sentence-transformers (all-MiniLM-L6-v2) — fully local, no API key required.
 """
 
 from __future__ import annotations
@@ -143,21 +142,3 @@ async def llm_fast(messages: list[dict], **kwargs: object) -> str:
     return response.choices[0].message.content or ""
 
 
-async def embed_text(text: str) -> list[float]:
-    """
-    Generate a 1536-dim embedding using OpenAI text-embedding-3-small.
-    Groq and OpenRouter do not support embeddings — OpenAI key is always
-    required for this function.
-    """
-    if not settings.OPENAI_API_KEY:
-        raise ValueError(
-            "Embeddings require OPENAI_API_KEY. "
-            "Groq and OpenRouter do not support embeddings. "
-            "Please add OPENAI_API_KEY to your .env file."
-        )
-    response = await litellm.aembedding(
-        model="text-embedding-3-small",
-        input=text,
-        api_key=settings.OPENAI_API_KEY,
-    )
-    return response.data[0]["embedding"]  # type: ignore[index]

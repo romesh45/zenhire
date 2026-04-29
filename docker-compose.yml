@@ -3,12 +3,11 @@ services:
   api:
     build: ./backend
     ports: ['8000:8000']
+    env_file:
+      - ./backend/.env
     environment:
       DATABASE_URL: postgresql+asyncpg://postgres:postgres@postgres:5432/zenhire
       REDIS_URL: redis://redis:6379
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       ENVIRONMENT: development
     depends_on: [postgres, redis]
     volumes:

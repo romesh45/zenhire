@@ -22,7 +22,7 @@ class Resume(Base):
     resume_score: Mapped[float | None] = mapped_column(Float, nullable=True)
     skill_gaps: Mapped[list | None] = mapped_column(JSONB, nullable=True)
     job_fit_score: Mapped[float | None] = mapped_column(Float, nullable=True)
-    skill_vector: Mapped[list | None] = mapped_column(Vector(1536), nullable=True)
+    skill_vector: Mapped[list | None] = mapped_column(Vector(384), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
