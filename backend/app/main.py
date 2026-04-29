@@ -1,4 +1,5 @@
 import logging
+import subprocess
 import traceback
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
@@ -14,6 +15,24 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    # Run migrations before accepting traffic
+    try:
+        logger.info("Running database migrations...")
+        result = subprocess.run(
+            ["alembic", "upgrade", "head"],
+            capture_output=True,
+            text=True,
+            cwd="/app",
+        )
+        if result.returncode != 0:
+            logger.error(f"Migration failed (stdout): {result.stdout}")
+            logger.error(f"Migration failed (stderr): {result.stderr}")
+        else:
+            logger.info(f"Migrations complete: {result.stdout.strip()}")
+    except Exception as e:
+        logger.error(f"Migration error: {e}")
+        logger.error(traceback.format_exc())
+
     try:
         from app.core.database import engine  # noqa: F401
         logger.info("Startup: database engine initialized")
