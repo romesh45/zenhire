@@ -1,17 +1,32 @@
+import logging
+import traceback
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.core.database import engine
 from app.routers import auth, interview, jobs, report, resumes, sessions
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    try:
+        from app.core.database import engine  # noqa: F401
+        logger.info("Startup: database engine initialized")
+    except Exception as e:
+        logger.error(f"STARTUP FAILED: {e}")
+        logger.error(traceback.format_exc())
+        raise
     yield
-    await engine.dispose()
+    try:
+        from app.core.database import engine
+        await engine.dispose()
+    except Exception as e:
+        logger.error(f"Shutdown error: {e}")
 
 
 app = FastAPI(title="Zenhire API", version="1.0.0", lifespan=lifespan)
