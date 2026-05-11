@@ -1,4 +1,4 @@
-# Zenhire — AI Candidate Evaluation System
+# Zenhire — AI Candidate Evaluation Systems
 
 > End-to-end AI pipeline that evaluates software engineering candidates using three specialised agents, a deterministic decision engine, and a fully explainable scoring rubric.
 
